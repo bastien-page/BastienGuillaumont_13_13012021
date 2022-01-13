@@ -1,0 +1,15 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: $colorsecondary;
+  &__title {
+    font-size: 4rem;
+  }
+  &__link {
+    font-size: 2rem;
+    color: white;
+  }
+}
