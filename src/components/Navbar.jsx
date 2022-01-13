@@ -1,6 +1,19 @@
 import { Link } from "react-router-dom";
 
-function Navbar() {
+function Navbar(props) {
+  const profilePage = (
+    <div>
+      <Link className="main-nav-item" to="/user">
+        <i className="fa fa-user-circle"></i>
+        Tony
+      </Link>
+      <Link className="main-nav-item" to="/">
+        <i className="fa fa-sign-out"></i>
+        Sign Out
+      </Link>
+    </div>
+  );
+
   return (
     <nav className="main-nav">
       <Link className="main-nav-logo" to="/">
@@ -12,12 +25,16 @@ function Navbar() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
 
-      <div>
-        <Link className="main-nav-item" to="/login">
-          <i className="fa fa-user-circle"></i>
-          Sign In
-        </Link>
-      </div>
+      {props.page === "profile" ? (
+        profilePage
+      ) : (
+        <div>
+          <Link className="main-nav-item" to="/login">
+            <i className="fa fa-user-circle"></i>
+            Sign In
+          </Link>
+        </div>
+      )}
     </nav>
   );
 }

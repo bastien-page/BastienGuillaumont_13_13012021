@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 function Error() {
+  document.title = "Argent Bank - Page introuvable";
   return (
     <div className="app">
       <main className="main error">
