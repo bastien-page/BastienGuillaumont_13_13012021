@@ -2,7 +2,27 @@
 @import "./utils/typo";
 
 @import "./components/Navbar";
+@import "./components/Hero";
+
 @import "./components/Footer";
+
+body {
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+}
+
+.bg-dark {
+  background-color: #12002b;
+}
 
 .sr-only {
   border: 0 !important;
