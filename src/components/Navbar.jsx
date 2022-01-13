@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Navbar(props) {
   const profilePage = (
     <div>
-      <Link className="main-nav-item" to="/user">
+      <Link className="main-nav-item" to="/profile">
         <i className="fa fa-user-circle"></i>
         Tony
       </Link>
