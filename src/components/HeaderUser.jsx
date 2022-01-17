@@ -1,21 +1,26 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 function HeaderUser() {
   const [editName, setEditName] = useState(false);
-  const [firstName, setFirstName] = useState("Tony");
-  const [lastName, setLastName] = useState("Jarvis");
+  const [firstName, setFirstName] = useState("tony");
+  const [lastName, setLastName] = useState("jarvis");
+
+  const inputFisrt = useRef(null);
+  const inputLast = useRef(null);
 
   const toggle = () => {
     setEditName(!editName);
+    inputFisrt.current.value = "";
+    inputLast.current.value = "";
   };
 
-  const changeFirstName = (e) => {
-    setFirstName(e.target.value);
-  };
-
-  const changeLastName = (e) => {
-    setLastName(e.target.value);
+  const cancel = () => {
+    setEditName(!editName);
+    setFirstName("tony");
+    setLastName("jarvis");
+    inputFisrt.current.value = "";
+    inputLast.current.value = "";
   };
 
   return (
@@ -35,14 +40,24 @@ function HeaderUser() {
       </button>
       <div className={"edit-profile" + (editName ? "" : " sr-only")}>
         <div className="edit-firstName">
-          <input type="text" placeholder="Tony" onChange={changeFirstName} />
+          <input
+            ref={inputFisrt}
+            type="text"
+            placeholder={firstName}
+            onChange={(e) => setFirstName(e.target.value.toLowerCase())}
+          />
           <button className="edit-button" onClick={() => toggle()}>
             Valider
           </button>
         </div>
         <div className="edit-lastName">
-          <input type="text" placeholder="Jarvis" onChange={changeLastName} />
-          <button className="edit-button" onClick={() => toggle()}>
+          <input
+            ref={inputLast}
+            type="text"
+            placeholder={lastName}
+            onChange={(e) => setLastName(e.target.value.toLowerCase())}
+          />
+          <button className="edit-button" onClick={() => cancel()}>
             Cancel
           </button>
         </div>

@@ -20,6 +20,7 @@
       padding: 10px;
       margin-bottom: 0.5rem;
       border-radius: 3px;
+      text-transform: capitalize;
     }
     button {
       width: 70%;
@@ -33,4 +34,7 @@
 .header {
   color: #fff;
   margin-bottom: 2rem;
+  & span {
+    text-transform: capitalize;
+  }
 }
