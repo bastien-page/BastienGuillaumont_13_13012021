@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom";
 
 function Navbar(props) {
+  const signOut = () => {
+    localStorage.removeItem("jwt");
+  };
+
   const profilePage = (
     <div>
       <Link className="main-nav-item" to="/profile">
         <i className="fa fa-user-circle"></i>
         Tony
       </Link>
-      <Link className="main-nav-item" to="/">
+      <button onClick={() => signOut()} className="main-nav-item">
         <i className="fa fa-sign-out"></i>
         Sign Out
-      </Link>
+      </button>
     </div>
   );
 

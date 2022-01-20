@@ -1,13 +1,18 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { getUser } from "../actions/user.actions";
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState(null);
 
-  const handleLogin = (e) => {
+  const dispatch = useDispatch();
+
+  const getToken = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:3001/api/v1/user/login", {
+    fetch(`${process.env.REACT_APP_API_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -15,15 +20,18 @@ function SignIn() {
       body: JSON.stringify({ email: email, password: password }),
     })
       .then((response) => response.json())
-      .then((result) => console.log(result.body.token))
+      .then((result) => setToken(result.body.token))
       .catch((error) => console.error("error", error));
+
+    if (token != null) localStorage.setItem("jwt", token);
+    if (token != null) dispatch(getUser(token));
   };
 
   return (
     <section className="sign-in-content">
       <i className="fa fa-user-circle "></i>
       <h1>Sign In</h1>
-      <form action="" onSubmit={handleLogin}>
+      <form action="" onSubmit={getToken}>
         <div className="input-wrapper">
           <label htmlFor="email">Email</label>
           <input
