@@ -1,17 +1,21 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Navbar(props) {
+  const first = useSelector((state) => state.userReducer.firstName);
+
   const signOut = () => {
     localStorage.removeItem("jwt");
+    window.location = "/";
   };
 
   const profilePage = (
     <div>
       <Link className="main-nav-item" to="/profile">
         <i className="fa fa-user-circle"></i>
-        Tony
+        {first}
       </Link>
-      <button onClick={() => signOut()} className="main-nav-item">
+      <button onClick={() => signOut()} className="main-nav-item-btn">
         <i className="fa fa-sign-out"></i>
         Sign Out
       </button>
@@ -29,7 +33,7 @@ function Navbar(props) {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
 
-      {props.page === "profile" ? (
+      {localStorage.getItem("jwt") != null ? (
         profilePage
       ) : (
         <div>

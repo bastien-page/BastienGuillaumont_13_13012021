@@ -1,17 +1,11 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { getUser } from "../actions/user.actions";
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState(null);
-
-  const dispatch = useDispatch();
 
   const getToken = (e) => {
     e.preventDefault();
-
     fetch(`${process.env.REACT_APP_API_URL}/login`, {
       method: "POST",
       headers: {
@@ -20,11 +14,11 @@ function SignIn() {
       body: JSON.stringify({ email: email, password: password }),
     })
       .then((response) => response.json())
-      .then((result) => setToken(result.body.token))
+      .then((result) => {
+        localStorage.setItem("jwt", result.body.token);
+        window.location = "/profile";
+      })
       .catch((error) => console.error("error", error));
-
-    if (token != null) localStorage.setItem("jwt", token);
-    if (token != null) dispatch(getUser(token));
   };
 
   return (
