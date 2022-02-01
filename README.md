@@ -26,6 +26,7 @@ Bastien Guillaumont
 * [Fork the repository](https://github.com/Bab2a2s/BastienGuillaumont_13_13012021)
 * Clone it on your computer.
 * Open the folder.
+* ```yarn install``` command will allow you to install the dependencies.
 * ```yarn start``` command will allow you to run the project.
 
 
