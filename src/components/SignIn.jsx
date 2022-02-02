@@ -3,6 +3,7 @@ import { useState } from "react";
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   const getToken = (e) => {
     e.preventDefault();
@@ -16,9 +17,13 @@ function SignIn() {
       .then((response) => response.json())
       .then((result) => {
         localStorage.setItem("jwt", result.body.token);
+        setError(false);
         window.location = "/profile";
       })
-      .catch((error) => console.error("error", error));
+      .catch((error) => {
+        console.error("error", error);
+        setError(true);
+      });
   };
 
   return (
@@ -47,6 +52,9 @@ function SignIn() {
         <div className="input-remember">
           <input type="checkbox" id="remember-me" />
           <label htmlFor="remember-me">Remember me</label>
+        </div>
+        <div className={"input-error " + (error ? " " : "sr-only")}>
+          Email or password invalid
         </div>
         <input type="submit" value="Sign In" className="sign-in-button" />
       </form>

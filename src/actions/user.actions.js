@@ -20,7 +20,8 @@ export const getUser = (token) => {
   };
 };
 
-export const updateUser = (firstName, lastName, token) => {
+export const updateUser = (firstName, lastName) => {
+  const token = localStorage.getItem("jwt");
   return (dispatch) => {
     return fetch(`${process.env.REACT_APP_API_URL}/profile`, {
       method: "PUT",
@@ -30,8 +31,8 @@ export const updateUser = (firstName, lastName, token) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
+        firstName,
+        lastName,
       }),
     })
       .then((resp) => resp.json())
