@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { updateUser } from "../actions/user.actions";
@@ -16,8 +16,22 @@ function HeaderUser() {
 
   const changeName = (e) => {
     e.preventDefault();
-    dispatch(updateUser(firstName, lastName));
-    setEditName(!editName);
+    if (firstName === "" && lastName === "") {
+      setEditName(!editName);
+    } else if (firstName === "") {
+      dispatch(updateUser(first, lastName));
+      setEditName(!editName);
+      setLastName("");
+    } else if (lastName === "") {
+      dispatch(updateUser(firstName, last));
+      setEditName(!editName);
+      setFirstName("");
+    } else {
+      dispatch(updateUser(firstName, lastName));
+      setEditName(!editName);
+      setFirstName("");
+      setLastName("");
+    }
   };
 
   const cancel = (e) => {
