@@ -31,7 +31,7 @@ paths :
         - name : period
           in : body
           required: true
-          description : Period of transaction 
+          description : Current Month  
           schema:
             $ref: '#/definitions/TransactionsPeriod'
       produces : 
@@ -147,13 +147,13 @@ definitions:
       from:
         type: string
         format: date
-        description: start date
+        description: start date (30days before)
         example: '2022-01-01'
       to:
         type: string
         format: date
-        description: end date
-        example: '2022-02-20'
+        description: end date (today)
+        example: '2022-02-01'
   LastTransactions : 
     type: object
     properties:

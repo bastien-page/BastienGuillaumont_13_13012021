@@ -16,7 +16,7 @@ function App() {
     if (token != null) {
       dispatch(getUser(token));
     }
-  }, [token]);
+  }, [token, dispatch]);
 
   return (
     <BrowserRouter>

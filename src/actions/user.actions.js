@@ -2,6 +2,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 export const GET_USER = "GET_USER";
 export const UPDATE_USER = "UPDATE_USER";
+export const LOG_OUT = "LOG_OUT";
 
 export const getUser = (token) => {
   return (dispatch) => {
@@ -39,9 +40,20 @@ export const updateUser = (firstName, lastName) => {
       .then((result) => {
         dispatch({
           type: UPDATE_USER,
-          payload: result.body,
+          payload: { firstName, lastName },
         });
       })
       .catch((err) => console.log(err));
+  };
+};
+
+export const logOut = () => {
+  localStorage.removeItem("jwt");
+  return (dispatch) => {
+    dispatch({
+      type: LOG_OUT,
+      payload: "",
+    });
+    window.location = "/";
   };
 };

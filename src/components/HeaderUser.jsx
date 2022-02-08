@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { updateUser } from "../actions/user.actions";
 
 function HeaderUser() {
-  const first = useSelector((state) => state.userReducer.firstName);
-  const last = useSelector((state) => state.userReducer.lastName);
+  const first = useSelector((state) => state.userReducer.user.firstName);
+  const last = useSelector((state) => state.userReducer.user.lastName);
 
   const [editName, setEditName] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -14,20 +14,15 @@ function HeaderUser() {
 
   const dispatch = useDispatch();
 
-  const inputFisrt = useRef(null);
-  const inputLast = useRef(null);
-
-  const changeName = () => {
+  const changeName = (e) => {
+    e.preventDefault();
     dispatch(updateUser(firstName, lastName));
     setEditName(!editName);
   };
 
-  const cancel = () => {
+  const cancel = (e) => {
+    e.preventDefault();
     setEditName(!editName);
-    setFirstName(first);
-    setLastName(last);
-    inputFisrt.current.value = "";
-    inputLast.current.value = "";
   };
 
   return (
@@ -48,32 +43,23 @@ function HeaderUser() {
       <form className={"edit-profile" + (editName ? "" : " sr-only")}>
         <div className="edit-firstName">
           <input
-            ref={inputFisrt}
             type="text"
             value={firstName}
-            placeholder={first}
+            placeholder="First name"
             onChange={(e) => setFirstName(e.target.value.toLowerCase())}
           />
-          <button className="edit-button" onClick={changeName}>
-            Update profile
+          <button className="edit-button" onClick={(e) => changeName(e)}>
+            Save
           </button>
         </div>
         <div className="edit-lastName">
           <input
-            ref={inputLast}
             type="text"
-            placeholder={last}
+            placeholder="Last name"
             value={lastName}
-            onChange={(e) => {
-              console.log(e.target.value);
-              if (e.target.value !== "") {
-                setLastName(e.target.value.toLowerCase());
-              } else {
-                return last;
-              }
-            }}
+            onChange={(e) => setLastName(e.target.value.toLowerCase())}
           />
-          <button className="edit-button" onClick={() => cancel()}>
+          <button className="edit-button" onClick={(e) => cancel(e)}>
             Cancel
           </button>
         </div>

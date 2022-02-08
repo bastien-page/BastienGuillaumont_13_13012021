@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logOut } from "../actions/user.actions";
 
 function Navbar(props) {
-  const first = useSelector((state) => state.userReducer.firstName);
+  const dispatch = useDispatch();
+  const first = useSelector((state) => state.userReducer.user.firstName);
 
   const signOut = () => {
-    localStorage.removeItem("jwt");
-    window.location = "/";
+    dispatch(logOut());
   };
 
   const profilePage = (
