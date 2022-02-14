@@ -5,12 +5,14 @@ import { logOut } from "../actions/user.actions";
 function Navbar(props) {
   const dispatch = useDispatch();
   const first = useSelector((state) => state.userReducer.user.firstName);
+  const logIn = useSelector((state) => state.userReducer.isLogIn);
 
   const signOut = () => {
     dispatch(logOut());
   };
 
-  const profilePage = (
+  // Navbar to show Link Profile
+  const linkToProfile = (
     <div>
       <Link className="main-nav-item" to="/profile">
         <i className="fa fa-user-circle"></i>
@@ -33,17 +35,19 @@ function Navbar(props) {
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-
-      {localStorage.getItem("jwt") != null ? (
-        profilePage
-      ) : (
-        <div>
-          <Link className="main-nav-item" to="/login">
-            <i className="fa fa-user-circle"></i>
-            Sign In
-          </Link>
-        </div>
-      )}
+      {
+        // if user is conneted, show Link to Profile, else Link to Sign In
+        logIn ? (
+          linkToProfile
+        ) : (
+          <div>
+            <Link className="main-nav-item" to="/login">
+              <i className="fa fa-user-circle"></i>
+              Sign In
+            </Link>
+          </div>
+        )
+      }
     </nav>
   );
 }

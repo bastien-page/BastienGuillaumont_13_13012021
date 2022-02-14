@@ -4,6 +4,11 @@ export const GET_USER = "GET_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const LOG_OUT = "LOG_OUT";
 
+/**
+ * Get User profile
+ * @param {string} token  JWT Token
+ * @returns User profile
+ */
 export const getUser = (token) => {
   return (dispatch) => {
     return fetch(`${process.env.REACT_APP_API_URL}/profile`, {
@@ -21,6 +26,12 @@ export const getUser = (token) => {
   };
 };
 
+/**
+ * Update user profile
+ * @param {string} firstName new first name
+ * @param {string} lastName new last name
+ * @returns user profile update
+ */
 export const updateUser = (firstName, lastName) => {
   const token = localStorage.getItem("jwt");
   return (dispatch) => {
@@ -37,7 +48,7 @@ export const updateUser = (firstName, lastName) => {
       }),
     })
       .then((resp) => resp.json())
-      .then((result) => {
+      .then(() => {
         dispatch({
           type: UPDATE_USER,
           payload: { firstName, lastName },
@@ -47,8 +58,12 @@ export const updateUser = (firstName, lastName) => {
   };
 };
 
+/**
+ * Log out
+ * @returns clear local storage and state
+ */
 export const logOut = () => {
-  localStorage.removeItem("jwt");
+  localStorage.clear();
   return (dispatch) => {
     dispatch({
       type: LOG_OUT,
