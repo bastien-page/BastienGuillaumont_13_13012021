@@ -11,7 +11,6 @@ function HeaderUser() {
   const [editName, setEditName] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-
   const dispatch = useDispatch();
 
   const changeName = (e) => {
